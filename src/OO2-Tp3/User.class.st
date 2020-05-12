@@ -100,6 +100,23 @@ User >> questionsOfInterest [
 	^ questionRetriever retrieveQuestions: self.
 ]
 
+{ #category : #'as yet unclassified' }
+User >> retrieveFollowingQuestions [
+	| followingQuestions |
+	followingQuestions := OrderedCollection new.
+	following
+		do: [ :followedUser | followingQuestions addAll: followedUser questions ].
+	^ followingQuestions
+]
+
+{ #category : #'as yet unclassified' }
+User >> retrieveTopicQuestions [
+	| topicsQuestions |
+	topicsQuestions := OrderedCollection new.
+	topics do: [ :topic | topicsQuestions addAll: topic questions ].
+	^ topicsQuestions
+]
+
 { #category : #accessing }
 User >> topics [
 	^ topics

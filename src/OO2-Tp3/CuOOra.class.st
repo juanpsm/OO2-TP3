@@ -32,6 +32,15 @@ CuOOra >> addUser: aUser [
 
 ]
 
+{ #category : #retrieving }
+CuOOra >> averageVotes: SomeQuestions [
+	| averageVotes |
+	averageVotes := (questions  sum: [ :q | q positiveVotes size ])
+		/ SomeQuestions size.
+	^ averageVotes
+"Este promedio como estaba estaba mal calculado porque no divide por el total de las preguntas, solo por las que recibe"
+]
+
 { #category : #initialize }
 CuOOra >> initialize [
 	users := OrderedCollection new.
@@ -42,6 +51,25 @@ CuOOra >> initialize [
 { #category : #accessing }
 CuOOra >> questions [
 	^ questions
+]
+
+{ #category : #'as yet unclassified' }
+CuOOra >> retrieveTodayPopularQuestions [
+	| SomeQuestions averageVotes |
+	SomeQuestions := self retrieveTodayQuestions.
+	averageVotes := self averageVotes: SomeQuestions.
+	^ SomeQuestions select: [ :q | q positiveVotes size >= averageVotes ]
+]
+
+{ #category : #'as yet unclassified' }
+CuOOra >> retrieveTodayQuestions [
+	| todayQuestions |
+	todayQuestions := OrderedCollection new.
+	questions
+		do: [ :q | 
+			q timestamp asDate = Date today
+				ifTrue: [ todayQuestions add: q ] ].
+	^ todayQuestions
 ]
 
 { #category : #accessing }
