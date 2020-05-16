@@ -23,6 +23,11 @@ QuestionRetriever >> cuoora: aCuooraInstance [
 	cuoora := aCuooraInstance 
 ]
 
+{ #category : #accessing }
+QuestionRetriever >> filterLastHundredQuestions: questions [
+	^ questions last: (100 min: questions size)
+]
+
 { #category : #initializing }
 QuestionRetriever >> initialize [
 	option := #social
@@ -35,13 +40,23 @@ QuestionRetriever >> option: anOption [
 
 { #category : #retrieving }
 QuestionRetriever >> orderQuestionsByPositiveVotes: questions [
-	| temp |
-	temp := questions
-		asSortedCollection: [ :a :b | a positiveVotes size > b positiveVotes size ].
-	^ temp
+	^ questions
+		asSortedCollection: [ :a :b | a positiveVotes size > b positiveVotes size ]
 ]
 
 { #category : #accessing }
 QuestionRetriever >> retrieveQuestions: aUser [
-	^ self subclassResponsibility
+	| qRet temp questions |
+	qRet := OrderedCollection new.
+	option = #social
+		ifTrue: [ questions := aUser retrieveFollowingQuestions.].
+	option = #topics
+		ifTrue: [ questions := aUser retrieveTopicQuestions.].
+	option = #news
+		ifTrue: [ questions := cuoora retrieveTodayQuestions.].
+	option = #popularToday
+		ifTrue: [ questions := cuoora retrieveTodayPopularQuestions.].
+	temp := self orderQuestionsByPositiveVotes: questions.
+	qRet := self filterLastHundredQuestions: temp.
+	^ qRet reject: [ :q | q user = aUser ]
 ]

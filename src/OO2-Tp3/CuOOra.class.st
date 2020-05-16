@@ -33,10 +33,10 @@ CuOOra >> addUser: aUser [
 ]
 
 { #category : #retrieving }
-CuOOra >> averageVotes: SomeQuestions [
+CuOOra >> averageVotes: someQuestions [
 	| averageVotes |
 	averageVotes := (questions  sum: [ :q | q positiveVotes size ])
-		/ SomeQuestions size.
+		/ someQuestions size.
 	^ averageVotes
 "Este promedio como estaba estaba mal calculado porque no divide por el total de las preguntas, solo por las que recibe"
 ]
@@ -55,10 +55,10 @@ CuOOra >> questions [
 
 { #category : #'as yet unclassified' }
 CuOOra >> retrieveTodayPopularQuestions [
-	| SomeQuestions averageVotes |
-	SomeQuestions := self retrieveTodayQuestions.
-	averageVotes := self averageVotes: SomeQuestions.
-	^ SomeQuestions select: [ :q | q positiveVotes size >= averageVotes ]
+	| someQuestions averageVotes |
+	someQuestions := self retrieveTodayQuestions.
+	averageVotes := self averageVotes: someQuestions.
+	^ someQuestions select: [ :q | q positiveVotes size >= averageVotes ]
 ]
 
 { #category : #'as yet unclassified' }
