@@ -41,20 +41,14 @@ Answer >> initialize [
 	timestamp := DateAndTime now.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #counting }
 Answer >> negativeVotes [
-	| r |
-	r := OrderedCollection new.
-	votes do:[:vote | vote isLike ifFalse:[r add: vote]].
-	^r
+	^ votes reject: [ :vote | vote isLike ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #counting }
 Answer >> positiveVotes [
-	| r |
-	r := OrderedCollection new.
-	votes do:[:vote | vote isLike ifTrue:[r add: vote]].
-	^r
+	^ votes select: [ :vote | vote isLike ]
 ]
 
 { #category : #private }
