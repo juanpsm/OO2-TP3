@@ -63,13 +63,7 @@ CuOOra >> retrieveTodayPopularQuestions [
 
 { #category : #'as yet unclassified' }
 CuOOra >> retrieveTodayQuestions [
-	| todayQuestions |
-	todayQuestions := OrderedCollection new.
-	questions
-		do: [ :q | 
-			q timestamp asDate = Date today
-				ifTrue: [ todayQuestions add: q ] ].
-	^ todayQuestions
+	^ questions select: [ :q | q timestamp asDate = Date today ]
 ]
 
 { #category : #accessing }
