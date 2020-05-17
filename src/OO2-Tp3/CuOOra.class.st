@@ -17,7 +17,7 @@ CuOOra >> addQuestion: aQuestion [
 { #category : #adding }
 CuOOra >> addQuestion: aQuestion forUser: aUser [
 	aUser addQuestion: aQuestion.
-	questions add: aQuestion.
+	self addQuestion: aQuestion
 ]
 
 { #category : #adding }
@@ -53,7 +53,7 @@ CuOOra >> questions [
 	^ questions
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CuOOra >> retrieveTodayPopularQuestions [
 	| someQuestions averageVotes |
 	someQuestions := self retrieveTodayQuestions.
@@ -61,7 +61,7 @@ CuOOra >> retrieveTodayPopularQuestions [
 	^ someQuestions select: [ :q | q positiveVotes size >= averageVotes ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CuOOra >> retrieveTodayQuestions [
 	^ questions select: [ :q | q timestamp asDate = Date today ]
 ]
