@@ -34,11 +34,8 @@ CuOOra >> addUser: aUser [
 
 { #category : #retrieving }
 CuOOra >> averageVotes: someQuestions [
-	| averageVotes |
-	averageVotes := (questions  sum: [ :q | q positiveVotes size ])
-		/ someQuestions size.
-	^ averageVotes
-"Este promedio como estaba estaba mal calculado porque no divide por el total de las preguntas, solo por las que recibe"
+	^ self sumPositiveVotes / someQuestions size
+	"Este promedio está mal calculado porque suma los votos de todas las preguntas delsistema pero no divide por el número total de preguntas, sólo por el tamaño de la lista de preguntas que recibe"
 ]
 
 { #category : #initialize }
@@ -55,15 +52,20 @@ CuOOra >> questions [
 
 { #category : #accessing }
 CuOOra >> retrieveTodayPopularQuestions [
-	| someQuestions averageVotes |
-	someQuestions := self retrieveTodayQuestions.
-	averageVotes := self averageVotes: someQuestions.
-	^ someQuestions select: [ :q | q positiveVotes size >= averageVotes ]
+	| todayQuestions averageVotes |
+	todayQuestions := self retrieveTodayQuestions.
+	averageVotes := self averageVotes: todayQuestions.
+	^ todayQuestions select: [ :q | q positiveVotes size >= averageVotes ]
 ]
 
 { #category : #accessing }
 CuOOra >> retrieveTodayQuestions [
 	^ questions select: [ :q | q timestamp asDate = Date today ]
+]
+
+{ #category : #retrieving }
+CuOOra >> sumPositiveVotes [
+	^ questions sum: [ :q | q countPositiveVotes ]
 ]
 
 { #category : #accessing }
