@@ -45,7 +45,7 @@ User >> addVote: aVote [
 	votes add: aVote
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 User >> answers [
 	^ answers
 ]
@@ -55,7 +55,7 @@ User >> follow: aUser [
 	following add: aUser 
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 User >> following [
 	^ following
 ]
@@ -70,7 +70,7 @@ User >> initialize [
 	votes := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 User >> password [
 	^ password
 ]
@@ -80,7 +80,7 @@ User >> password: anObject [
 	password := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 User >> questionRetriever [
 	^ questionRetriever
 ]
@@ -95,7 +95,7 @@ User >> questions [
 	^ questions
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 User >> questionsOfInterest [
 	^ questionRetriever retrieveQuestions: self.
 ]

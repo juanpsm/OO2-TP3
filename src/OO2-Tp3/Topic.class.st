@@ -22,7 +22,7 @@ Topic >> addQuestion: aQuetion [
 	questions add: aQuetion 
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 Topic >> description [
 	^ description
 ]
@@ -37,7 +37,7 @@ Topic >> initialize [
 	questions := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 Topic >> name [
 	^name
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #Post,
+	#name : #Publication,
 	#superclass : #Object,
 	#instVars : [
 		'timestamp',
@@ -11,57 +11,62 @@ Class {
 }
 
 { #category : #adding }
-Post >> addVote: aVote [
+Publication >> addVote: aVote [
 	votes add: aVote
 ]
 
-{ #category : #accessing }
-Post >> description [
+{ #category : #retrieving }
+Publication >> countPositiveVotes [
+	^ self positiveVotes size
+]
+
+{ #category : #unused }
+Publication >> description [
 	^ description
 ]
 
 { #category : #private }
-Post >> description: anObject [
+Publication >> description: anObject [
 	description := anObject
 ]
 
 { #category : #initialize }
-Post >> initialize [
+Publication >> initialize [
 	votes := OrderedCollection new.
 	timestamp := DateAndTime now.
 ]
 
 { #category : #counting }
-Post >> negativeVotes [
+Publication >> negativeVotes [
 	^ votes reject: [ :vote | vote isLike ]
 ]
 
 { #category : #counting }
-Post >> positiveVotes [
+Publication >> positiveVotes [
 	^ votes select: [ :vote | vote isLike ]
 ]
 
 { #category : #accessing }
-Post >> timestamp [
+Publication >> timestamp [
 	^ timestamp
 ]
 
-{ #category : #private }
-Post >> timestamp: anObject [
+{ #category : #unused }
+Publication >> timestamp: anObject [
 	timestamp := anObject
 ]
 
 { #category : #accessing }
-Post >> user [
+Publication >> user [
 	^ user
 ]
 
 { #category : #private }
-Post >> user: anObject [
+Publication >> user: anObject [
 	user := anObject
 ]
 
 { #category : #accessing }
-Post >> votes [
+Publication >> votes [
 	^ votes
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #Question,
-	#superclass : #Post,
+	#superclass : #Publication,
 	#instVars : [
 		'title',
 		'answers',
@@ -37,7 +37,7 @@ Question >> initialize [
 	topics := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 Question >> title [
 	^title 
 ]

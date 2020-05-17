@@ -44,12 +44,12 @@ Vote >> isLike [
 	^ isLike
 ]
 
-{ #category : #private }
+{ #category : #unused }
 Vote >> like [
 	isLike := true.
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 Vote >> publication [
 	^ publication
 ]
@@ -59,7 +59,7 @@ Vote >> publication: anObject [
 	publication := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #unused }
 Vote >> user [
 	^ user
 ]

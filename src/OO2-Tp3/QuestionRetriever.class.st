@@ -24,8 +24,8 @@ QuestionRetriever >> cuoora: aCuooraInstance [
 ]
 
 { #category : #utility }
-QuestionRetriever >> filterLastHundredQuestions: questions [
-	^ questions last: (100 min: questions size)
+QuestionRetriever >> filterLastHundredQuestions: someQuestions [
+	^ someQuestions last: (100 min: someQuestions size)
 ]
 
 { #category : #initializing }
@@ -33,7 +33,7 @@ QuestionRetriever >> initialize [
 	option := RetrievingStrategy new.
 ]
 
-{ #category : #accesing }
+{ #category : #unused }
 QuestionRetriever >> option [
 	^ option.
 ]
@@ -44,17 +44,17 @@ QuestionRetriever >> option: anOption [
 ]
 
 { #category : #utility }
-QuestionRetriever >> orderQuestionsByPositiveVotes: questions [
-	^ questions
+QuestionRetriever >> orderQuestionsByPositiveVotes: someQuestions [
+	^ someQuestions
 		asSortedCollection: [ :a :b | a positiveVotes size > b positiveVotes size ]
 ]
 
 { #category : #accessing }
 QuestionRetriever >> retrieveQuestions: aUser [
-	| qRet temp questions |
+	| qRet temp someQuestions |
 	qRet := OrderedCollection new.
-	questions := option getQuestionsFrom: aUser In: cuoora.
-	temp := self orderQuestionsByPositiveVotes: questions.
+	someQuestions := option getQuestionsFrom: aUser In: cuoora.
+	temp := self orderQuestionsByPositiveVotes: someQuestions.
 	qRet := self filterLastHundredQuestions: temp.
 	^ qRet reject: [ :q | q user = aUser ]
 ]
