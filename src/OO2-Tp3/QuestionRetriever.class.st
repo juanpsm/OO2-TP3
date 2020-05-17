@@ -23,22 +23,27 @@ QuestionRetriever >> cuoora: aCuooraInstance [
 	cuoora := aCuooraInstance 
 ]
 
-{ #category : #accessing }
+{ #category : #utility }
 QuestionRetriever >> filterLastHundredQuestions: questions [
 	^ questions last: (100 min: questions size)
 ]
 
 { #category : #initializing }
 QuestionRetriever >> initialize [
-	option := #social
+	option := RetrievingStrategy new.
+]
+
+{ #category : #accesing }
+QuestionRetriever >> option [
+	^ option.
 ]
 
 { #category : #accesing }
 QuestionRetriever >> option: anOption [
-	option := anOption
+	option := (option retrievingStrategyFactory: anOption).
 ]
 
-{ #category : #retrieving }
+{ #category : #utility }
 QuestionRetriever >> orderQuestionsByPositiveVotes: questions [
 	^ questions
 		asSortedCollection: [ :a :b | a positiveVotes size > b positiveVotes size ]
@@ -48,14 +53,7 @@ QuestionRetriever >> orderQuestionsByPositiveVotes: questions [
 QuestionRetriever >> retrieveQuestions: aUser [
 	| qRet temp questions |
 	qRet := OrderedCollection new.
-	option = #social
-		ifTrue: [ questions := aUser retrieveFollowingQuestions.].
-	option = #topics
-		ifTrue: [ questions := aUser retrieveTopicQuestions.].
-	option = #news
-		ifTrue: [ questions := cuoora retrieveTodayQuestions.].
-	option = #popularToday
-		ifTrue: [ questions := cuoora retrieveTodayPopularQuestions.].
+	questions := option getQuestionsFrom: aUser In: cuoora.
 	temp := self orderQuestionsByPositiveVotes: questions.
 	qRet := self filterLastHundredQuestions: temp.
 	^ qRet reject: [ :q | q user = aUser ]
